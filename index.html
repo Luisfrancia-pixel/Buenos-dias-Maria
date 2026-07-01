@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para María</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+        }
+        #loading {
+            font-size: 24px;
+            animation: fade 2s infinite;
+        }
+        #main-content {
+            display: none;
+        }
+        h1 {
+            font-size: 26px;
+            margin-bottom: 20px;
+            padding: 0 10px;
+        }
+        button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 77, 77, 0.4);
+            font-weight: bold;
+        }
+        .floating-text {
+            position: absolute;
+            color: #ff6666;
+            font-weight: bold;
+            font-size: 20px;
+            white-space: nowrap;
+            animation: floatUp 4s linear forwards;
+            z-index: 10;
+        }
+        .heart {
+            position: absolute;
+            font-size: 30px;
+            animation: floatUp 5s linear forwards;
+            opacity: 0.7;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) translateX(0); opacity: 1; }
+            100% { transform: translateY(-10vh) translateX(var(--randomX)); opacity: 0; }
+        }
+        @keyframes fade {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loading">✨ Preparando magia...</div>
+
+    <div id="main-content">
+        <h1>❤️ BUENOS DÍAS MI AMOR, SOLO PARA MARIA ❤️</h1>
+        <button onclick="startMagic()">Click aquí</button>
+    </div>
+
+    <script>
+        setTimeout(() => {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+        }, 3000);
+
+        const phrases = ["te quiero", "mi vida", "eres mi sol", "bombón", "cosita linda", "mi reina"];
+
+        function startMagic() {
+            setInterval(() => {
+                createFloatingPhrase();
+                createHeart();
+            }, 300);
+        }
+
+        function createFloatingPhrase() {
+            const text = document.createElement('div');
+            text.classList.add('floating-text');
+            text.innerText = phrases[Math.floor(Math.random() * phrases.length)];
+            text.style.left = Math.random() * 80 + 10 + 'vw';
+            text.style.setProperty('--randomX', (Math.random() * 200 - 100) + 'px');
+            text.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(text);
+            setTimeout(() => text.remove(), 5000);
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerText = "❤️";
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.setProperty('--randomX', (Math.random() * 200 - 100) + 'px');
+            heart.style.animationDuration = (Math.random() * 2 + 4) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }
+    </script>
+</body>
+</html>
